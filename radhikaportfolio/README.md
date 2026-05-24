@@ -1,73 +1,109 @@
-# React + TypeScript + Vite
+# Radhika Agarwal — Portfolio 🌿
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Full-Stack Developer & AI Engineer · GL Bajaj Institute of Technology & Management · CSE Batch 2028
 
-Currently, two official plugins are available:
+A personal portfolio built with **React + Vite + Tailwind CSS v4** — warm beige/cream/brown theme, custom cursor, skills ticker, interactive project cards, and scroll-reveal animations.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Custom animated cursor
+- Sticky navbar with scroll spy
+- Infinite skills ticker (pauses on hover)
+- Horizontal project slider with expand-on-click cards
+- Achievements grid, certifications, GFG club events
+- Contact form that opens mail client
+- Scroll reveal animations + grain texture
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠 Tech Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+| Layer | Tech |
+|---|---|
+| Framework | React 18 + Vite 5 |
+| Styling | Tailwind CSS v4 + CSS custom properties |
+| Fonts | Playfair Display + DM Sans |
+| Deployment | Vercel |
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🚀 Getting Started
+
+```bash
+npm install
+npm run dev
+# → http://localhost:5173
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run build    # production build
 ```
+
+---
+
+## 📁 Project Structure
+
+```
+src/
+├── App.jsx
+├── main.jsx
+├── styles/index.css
+├── assets/data/portfolio.js   ← all your content lives here
+├── components/
+│   ├── Cursor.jsx
+│   ├── Navbar.jsx
+│   ├── SkillsTicker.jsx
+│   └── useReveal.js
+└── sections/
+    ├── Hero.jsx
+    ├── Projects.jsx
+    ├── Achievements.jsx
+    ├── Certifications.jsx
+    ├── ClubEvents.jsx
+    └── Contact.jsx
+```
+
+---
+
+## ✏️ Updating Content
+
+Everything is in **one file** — `src/assets/data/portfolio.js`.
+
+Update your name, links, projects, achievements, skills, and club events there. No need to touch any component file.
+
+To add club event photos — drop images in `public/events/` and set `photo: '/events/filename.jpg'` in the event object.
+
+---
+
+## 🎨 Theme Colors
+
+Edit the `@theme {}` block in `src/styles/index.css`:
+
+```css
+@theme {
+  --color-bg:    #f5f0e8;
+  --color-brown: #3d2b1f;
+  --color-gold:  #c49a3c;
+  /* and so on... */
+}
+```
+
+---
+
+## 🌐 Deploy on Vercel
+
+1. Push to GitHub
+2. Import repo on [vercel.com](https://vercel.com)
+3. Click Deploy — live at `yourname.vercel.app` ✅
+
+Auto-deploys on every `git push`.
+
+---
+
+## 📬 Contact
+
+**Radhika Agarwal** · radhikaag18@gmail.com
+
+*Built with curiosity · Deployed with ambition* 🌿

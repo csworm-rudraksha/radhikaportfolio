@@ -1,0 +1,187 @@
+@import "tailwindcss";
+
+/* @theme {
+  --color-bg:     #f5f0e8;
+  --color-bg2:    #ede6d6;
+  --color-bg3:    #e4d9c3;
+  --color-cream:  #faf7f2;
+  --color-brown:  #3d2b1f;
+  --color-brown2: #6b4c3b;
+  --color-brown3: #a07850;
+  --color-muted:  #8a7060;
+  --color-gold:   #c49a3c;
+  --color-gold2:  #e8c060;
+
+  --font-playfair: "Playfair Display", serif;
+  --font-dm:       "DM Sans", sans-serif;
+} */
+
+/* paste the rest of your portfolio CSS below this line */
+
+
+@layer base {
+  :root {
+    --bg:     #f5f0e8;
+    --bg2:    #ede6d6;
+    --bg3:    #e4d9c3;
+    --cream:  #faf7f2;
+    --brown:  #3d2b1f;
+    --brown2: #6b4c3b;
+    --brown3: #a07850;
+    --muted:  #8a7060;
+    --gold:   #c49a3c;
+    --gold2:  #e8c060;
+    --border: rgba(61,43,31,0.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--brown);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* Grain overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9990;
+    opacity: 0.35;
+  }
+}
+
+@layer components {
+  /* ---------- CURSOR ---------- */
+  .custom-cursor {
+    position: fixed;
+    width: 10px; height: 10px;
+    background: var(--brown);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width .2s, height .2s;
+  }
+  .custom-cursor-ring {
+    position: fixed;
+    width: 32px; height: 32px;
+    border: 1.5px solid var(--brown3);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    opacity: 0.5;
+  }
+
+  /* ---------- SKILLS TICKER ---------- */
+  .ticker-wrap {
+    overflow: hidden;
+    background: var(--brown);
+    border-top: 1px solid rgba(255,255,255,.1);
+    border-bottom: 1px solid rgba(255,255,255,.1);
+    padding: 16px 0;
+  }
+  .ticker-inner {
+    display: flex;
+    white-space: nowrap;
+    animation: ticker 28s linear infinite;
+  }
+  .ticker-inner:hover { animation-play-state: paused; }
+  @keyframes ticker {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .tick-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 4px 28px;
+    font-size: 12px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: rgba(250,247,242,.7);
+    font-weight: 500;
+    white-space: nowrap;
+    transition: color .2s;
+    cursor: default;
+  }
+  .tick-item:hover { color: var(--gold2); }
+  .tick-sep { color: var(--gold); font-size: 16px; opacity: .6; }
+
+  /* ---------- SECTION COMMON ---------- */
+  .sec-label {
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  .sec-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 5vw, 58px);
+    font-weight: 800;
+    letter-spacing: -.03em;
+    margin-bottom: 56px;
+    line-height: 1.05;
+    color: var(--brown);
+  }
+  .sec-divider { height: 1px; background: var(--border); }
+
+  /* ---------- BUTTONS ---------- */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--brown);
+    color: var(--cream);
+    padding: 14px 28px;
+    font-size: 13px;
+    letter-spacing: .06em;
+    font-weight: 500;
+    text-decoration: none;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .btn-primary:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0 var(--brown3);
+  }
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border: 1.5px solid var(--brown3);
+    color: var(--brown);
+    padding: 13px 28px;
+    font-size: 13px;
+    letter-spacing: .06em;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background .2s, color .2s;
+  }
+  .btn-outline:hover { background: var(--brown); color: var(--cream); }
+
+  /* ---------- REVEAL ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity .75s ease, transform .75s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg2); }
+::-webkit-scrollbar-thumb { background: var(--brown3); }

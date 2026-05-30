@@ -34,15 +34,15 @@ export default function Navbar() {
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 500,
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
         padding: scrolled ? '14px 48px' : '20px 48px',
-        background: 'rgba(245,240,232,0.88)',
-        backdropFilter: 'blur(16px)',
-        borderBottom: '1px solid rgba(61,43,31,0.10)',
-        boxShadow: scrolled ? '0 2px 20px rgba(61,43,31,.06)' : 'none',
+       background: 'rgba(10,10,10,0.88)',
+backdropFilter: 'blur(16px)',
+borderBottom: '1px solid rgba(255,255,255,.08)',
+boxShadow: scrolled ? '0 6px 40px rgba(0,0,0,.45)' : 'none',
         transition: 'padding .3s, box-shadow .3s',
       }}
     >
       {/* Logo */}
-      <div style={{ fontFamily: 'Playfair Display, serif', fontSize: 20, fontWeight: 700, color: 'var(--brown)' }}>
+      <div style={{ fontFamily: 'Playfair Display, serif', fontSize: 20, fontWeight: 700, color: '#f0ede6' }}>
         {personal.nameShort}<span style={{ color: 'var(--gold)' }}>.</span>
       </div>
 
@@ -56,9 +56,14 @@ export default function Navbar() {
               <a
                 href={href}
                 style={{
-                  fontSize: 13, color: isA ? 'var(--brown)' : 'var(--muted)',
-                  textDecoration: 'none', fontWeight: 500, letterSpacing: '.04em',
-                  position: 'relative', paddingBottom: 4, transition: 'color .2s',
+                  fontSize: 13,
+color: isA ? '#f0ede6' : 'rgba(160,152,136,0.6)',
+textDecoration: 'none',
+fontWeight: 500,
+letterSpacing: '.08em',
+position: 'relative',
+paddingBottom: 4,
+transition: 'color .25s',
                 }}
               >
                 {label}
@@ -76,12 +81,23 @@ export default function Navbar() {
       {/* Avatar */}
       <div style={{
         width: 40, height: 40, borderRadius: '50%',
-        background: 'var(--bg3)', border: '2px solid var(--brown3)',
+        background: 'linear-gradient(135deg, #1c2230, #151922)',
+border: '1px solid rgba(232,160,69,.4)',
+boxShadow: '0 8px 30px rgba(0,0,0,.35)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         fontSize: 17, cursor: 'pointer', transition: 'transform .2s, border-color .2s',
       }}
-        onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.08)'; e.currentTarget.style.borderColor = 'var(--gold)' }}
-        onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)';    e.currentTarget.style.borderColor = 'var(--brown3)' }}
+       onMouseEnter={e => {
+  e.currentTarget.style.transform = 'scale(1.08)'
+  e.currentTarget.style.borderColor = 'var(--gold)'
+  e.currentTarget.style.boxShadow = '0 10px 35px rgba(232,160,69,.25)'
+}}
+
+onMouseLeave={e => {
+  e.currentTarget.style.transform = 'scale(1)'
+  e.currentTarget.style.borderColor = 'rgba(232,160,69,.4)'
+  e.currentTarget.style.boxShadow = '0 8px 30px rgba(0,0,0,.35)'
+}}
       >
         👩‍💻
       </div>

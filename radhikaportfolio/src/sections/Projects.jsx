@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { useReveal } from '../components/useReveal'
 import { projects } from '../assets/data/portfolio'
 
@@ -13,155 +13,289 @@ const TEXT_COLOR = {
   pi3: 'rgba(220,120,100,.12)',
 }
 
-function ProjectCard({ project }) {
-  const [open, setOpen] = useState(false)
-
-  return (
-    <div
-      style={{
-        flex: '0 0 340px', scrollSnapAlign: 'start',
-        background: 'var(--cream)', border: '1px solid var(--border)',
-        overflow: 'hidden', position: 'relative', cursor: 'pointer',
-        transform: open ? 'translateY(-8px)' : 'translateY(0)',
-        boxShadow: open ? '0 24px 48px rgba(61,43,31,.12)' : 'none',
-        transition: 'transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s',
-      }}
-    >
-      {/* Image area */}
-      <div style={{ height: 190, position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div style={{
-          width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center',
-          background: COLOR_MAP[project.colorClass],
-          fontFamily: 'Playfair Display, serif', fontSize: 72, fontWeight: 900,
-          color: TEXT_COLOR[project.colorClass], letterSpacing: '-.05em',
-          transition: 'transform .5s ease',
-          transform: open ? 'scale(1.07)' : 'scale(1)',
-        }}>
-          {project.initials}
-        </div>
-        <span style={{
-          position: 'absolute', top: 14, left: 14,
-          fontSize: 10, letterSpacing: '.12em', textTransform: 'uppercase',
-          background: 'rgba(245,240,232,.92)', color: 'var(--brown)',
-          padding: '5px 12px', fontWeight: 500, border: '1px solid var(--border)',
-        }}>
-          {project.badge}
-        </span>
-        <span style={{ position: 'absolute', top: 14, right: 14, fontSize: 10, color: 'rgba(245,240,232,.6)', letterSpacing: '.08em' }}>
-          {project.year}
-        </span>
-      </div>
-
-      {/* Body */}
-      <div style={{ padding: 24, borderTop: '1px solid var(--border)' }}>
-        <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: 20, fontWeight: 700, color: 'var(--brown)', marginBottom: 6 }}>
-          {project.title}
-        </h3>
-        <div style={{ fontSize: 12, color: 'var(--gold)', fontWeight: 500, letterSpacing: '.04em', marginBottom: 10 }}>
-          ✦ {project.tagline}
-        </div>
-
-        {/* Expandable description */}
-        {open && (
-          <p style={{ fontSize: 13, color: 'var(--brown2)', lineHeight: 1.75, marginBottom: 16 }}>
-            {project.description}
-          </p>
-        )}
-
-        {/* Stack */}
-        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 16 }}>
-          {project.stack.map(t => (
-            <span key={t} style={{
-              fontSize: 10, letterSpacing: '.06em', padding: '4px 10px',
-              background: 'var(--bg3)', color: 'var(--brown2)',
-              border: '1px solid var(--border)', fontWeight: 500,
-            }}>{t}</span>
-          ))}
-        </div>
-
-        {/* Footer */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ display: 'flex', gap: 16 }}>
-            <a href={project.github} style={{ fontSize: 12, color: 'var(--brown3)', textDecoration: 'none', borderBottom: '1px solid var(--border)', paddingBottom: 2 }}>
-              GitHub ↗
-            </a>
-            {project.live && project.live !== '#' && (
-              <a href={project.live} style={{ fontSize: 12, color: 'var(--brown3)', textDecoration: 'none', borderBottom: '1px solid var(--border)', paddingBottom: 2 }}>
-                Live ↗
-              </a>
-            )}
-          </div>
-          <button
-            onClick={() => setOpen(o => !o)}
-            style={{
-              width: 32, height: 32, border: '1.5px solid var(--border)',
-              background: open ? 'var(--brown)' : 'transparent',
-              color: open ? 'var(--cream)' : 'var(--brown3)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              cursor: 'pointer', fontSize: 18, fontFamily: 'inherit',
-              transform: open ? 'rotate(45deg)' : 'none',
-              transition: 'background .2s, color .2s, transform .3s',
-            }}
-          >
-            +
-          </button>
-        </div>
-      </div>
-    </div>
-  )
-}
-
 export default function Projects() {
-  const trackRef    = useRef(null)
-  const headerRef   = useReveal(0.1, 0)
-  const trackReveal = useReveal(0.1, 100)
+  const [stack, setStack] = useState(projects) // stack[0] is always on top
+  const [animating, setAnimating] = useState(false)
+  const [leaving, setLeaving] = useState(false)
 
-  const scroll = (dir) => {
-    trackRef.current?.scrollBy({ left: dir * 364, behavior: 'smooth' })
+  const headerRef = useReveal(0.1, 0)
+  const deckRef   = useReveal(0.1, 120)
+
+  const handleNext = () => {
+    if (animating) return
+    setAnimating(true)
+    setLeaving(true)
+    setTimeout(() => {
+      setStack(prev => {
+        const [first, ...rest] = prev
+        return [...rest, first]
+      })
+      setLeaving(false)
+      setAnimating(false)
+    }, 420)
   }
 
+  const handlePrev = () => {
+    if (animating) return
+    setAnimating(true)
+    setStack(prev => {
+      const last = prev[prev.length - 1]
+      return [last, ...prev.slice(0, -1)]
+    })
+    setTimeout(() => setAnimating(false), 420)
+  }
+
+  const top    = stack[0]
+  const second = stack[1]
+  const third  = stack[2]
+
   return (
-    <section id="projects" style={{ padding: '96px 48px', background: 'var(--bg2)' }}>
-      <div ref={headerRef} className="reveal" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 48, flexWrap: 'wrap', gap: 16 }}>
+    <section id="projects" style={{ padding: '96px 48px', background: '#0d0d0d' }}>
+
+      {/* Header */}
+      <div ref={headerRef} className="reveal" style={{
+        display: 'flex', justifyContent: 'space-between',
+        alignItems: 'flex-end', marginBottom: 64, flexWrap: 'wrap', gap: 16,
+      }}>
         <div>
           <div className="sec-label">// 02 — selected work</div>
-          <h2 className="sec-title" style={{ marginBottom: 0 }}>
+          <h2 className="sec-title" style={{ marginBottom: 0, color: '#f0ede6' }}>
             Projects<em style={{ fontStyle: 'italic', color: 'var(--brown2)' }}>.</em>
           </h2>
         </div>
-        <a href="https://github.com" style={{ fontSize: 12, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--brown3)', textDecoration: 'none', borderBottom: '1px solid var(--brown3)', paddingBottom: 2 }}>
+        <a href="https://github.com" style={{
+          fontSize: 12, letterSpacing: '.1em', textTransform: 'uppercase',
+          color: 'var(--brown3)', textDecoration: 'none',
+          borderBottom: '1px solid var(--brown3)', paddingBottom: 2,
+        }}>
           All on GitHub →
         </a>
       </div>
 
-      <div ref={trackReveal} className="reveal">
-        {/* Slider */}
-        <div ref={trackRef} style={{
-          display: 'flex', gap: 24, overflowX: 'auto',
-          scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch',
-          paddingBottom: 8, scrollbarWidth: 'none',
-        }}>
-          {projects.map(p => <ProjectCard key={p.id} project={p} />)}
+      {/* Deck + Info */}
+      <div ref={deckRef} className="reveal" style={{
+        display: 'flex', gap: 80, alignItems: 'center', flexWrap: 'wrap',
+      }}>
+
+        {/* STACKED DECK */}
+        <div style={{ position: 'relative', width: 340, height: 420, flexShrink: 0, margin: '40px auto' }}>
+
+          {/* Card 3 — bottom */}
+          {third && (
+            <div style={{
+              position: 'absolute', top: 0, left: 0,
+              width: 340, height: 400,
+              background: 'rgba(255,255,255,0.04)',
+              border: '1px solid var(--border)',
+              transform: 'rotate(6deg) translateY(16px)',
+              zIndex: 1,
+              transition: 'transform .4s ease',
+            }} />
+          )}
+
+          {/* Card 2 — middle */}
+          {second && (
+            <div style={{
+              position: 'absolute', top: 0, left: 0,
+              width: 340, height: 400,
+              background: 'rgba(255,255,255,0.04)',
+              border: '1px solid var(--border)',
+              transform: 'rotate(3deg) translateY(8px)',
+              zIndex: 2,
+              transition: 'transform .4s ease',
+              overflow: 'hidden',
+            }}>
+              <div style={{
+                height: 180,
+                background: COLOR_MAP[second.colorClass],
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontFamily: 'Playfair Display, serif', fontSize: 64, fontWeight: 900,
+                color: TEXT_COLOR[second.colorClass],
+              }}>
+                {second.initials}
+              </div>
+            </div>
+          )}
+
+          {/* Card 1 — TOP (interactive) */}
+          <div
+            onClick={handleNext}
+            style={{
+              position: 'absolute', top: 0, left: 0,
+              width: 340, height: 400,
+              background: 'rgba(255,255,255,0.04)',
+              border: '1px solid var(--border)',
+              zIndex: 3,
+              cursor: 'pointer',
+              overflow: 'hidden',
+              transform: leaving
+                ? 'rotate(-8deg) translateX(-120%) translateY(-20px)'
+                : 'rotate(0deg) translateY(0px)',
+              transition: 'transform .42s cubic-bezier(.4,0,.2,1), box-shadow .3s, border-color .3s, background .3s',
+              boxShadow: '0 20px 48px rgba(0,0,0,.25)',
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.borderColor = 'rgba(232,160,69,0.35)'
+              e.currentTarget.style.background = 'rgba(232,160,69,0.04)'
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.borderColor = 'var(--border)'
+              e.currentTarget.style.background = 'rgba(255,255,255,0.04)'
+            }}
+          >
+            {/* Image */}
+            <div style={{
+              height: 180, background: COLOR_MAP[top.colorClass],
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontFamily: 'Playfair Display, serif', fontSize: 72, fontWeight: 900,
+              color: TEXT_COLOR[top.colorClass], letterSpacing: '-.05em',
+              position: 'relative',
+            }}>
+              {top.initials}
+              <span style={{
+                position: 'absolute', top: 14, left: 14,
+                fontSize: 10, letterSpacing: '.12em', textTransform: 'uppercase',
+                background: 'var(--gold)', color: '#0a0a0a',
+                padding: '5px 12px', fontWeight: 600, border: '1px solid rgba(0,0,0,0.1)',
+              }}>
+                {top.badge}
+              </span>
+              <span style={{
+                position: 'absolute', top: 14, right: 14,
+                fontSize: 10, color: 'rgba(255,255,255,0.4)', letterSpacing: '.08em',
+              }}>
+                {top.year}
+              </span>
+            </div>
+
+            {/* Body */}
+            <div style={{ padding: 24 }}>
+              <h3 style={{
+                fontFamily: 'Playfair Display, serif', fontSize: 20,
+                fontWeight: 700, color: '#f0ede6', marginBottom: 6,
+              }}>
+                {top.title}
+              </h3>
+              <div style={{ fontSize: 12, color: 'var(--gold)', fontWeight: 500, marginBottom: 12 }}>
+                ✦ {top.tagline}
+              </div>
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                {top.stack.slice(0, 4).map(t => (
+                  <span key={t} style={{
+                    fontSize: 10, letterSpacing: '.06em', padding: '4px 10px',
+                    background: 'rgba(255,255,255,0.07)', color: '#b0a898',
+                    border: '1px solid rgba(255,255,255,0.1)', fontWeight: 500,
+                  }}>{t}</span>
+                ))}
+              </div>
+              {/* Tap hint */}
+              <div style={{
+                marginTop: 20, fontSize: 11, color: 'var(--muted)',
+                letterSpacing: '.1em', textTransform: 'uppercase',
+                display: 'flex', alignItems: 'center', gap: 8,
+              }}>
+                <span style={{ width: 24, height: 1, background: 'var(--muted)', display: 'inline-block' }} />
+                tap to flip
+              </div>
+            </div>
+          </div>
+
+          {/* Counter */}
+          <div style={{
+            position: 'absolute', bottom: -36, left: 0, right: 0,
+            display: 'flex', justifyContent: 'center', gap: 8,
+          }}>
+            {projects.map((p, i) => (
+              <span key={p.id} style={{
+                width: i === 0 ? 24 : 8, height: 8,
+                borderRadius: 4,
+                background: stack[0].id === p.id ? 'var(--gold)' : 'var(--border)',
+                transition: 'all .3s',
+                display: 'inline-block',
+              }} />
+            ))}
+          </div>
         </div>
 
-        {/* Arrow nav */}
-        <div style={{ display: 'flex', gap: 12, marginTop: 28 }}>
-          {['←', '→'].map((arrow, i) => (
-            <button key={arrow} onClick={() => scroll(i === 0 ? -1 : 1)} style={{
-              width: 44, height: 44, border: '1.5px solid var(--brown3)',
-              background: 'transparent', cursor: 'pointer',
-              fontSize: 18, color: 'var(--brown)', fontFamily: 'inherit',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              transition: 'background .2s, color .2s',
+        {/* PROJECT INFO PANEL */}
+        <div style={{ flex: 1, minWidth: 260 }}>
+          <div style={{
+            fontSize: 11, letterSpacing: '.18em', textTransform: 'uppercase',
+            color: 'var(--muted)', marginBottom: 8,
+          }}>
+            {projects.indexOf(stack[0]) + 1} / {projects.length}
+          </div>
+          <h3 style={{
+            fontFamily: 'Playfair Display, serif', fontSize: 32,
+            fontWeight: 800, color: '#f0ede6', marginBottom: 8,
+            letterSpacing: '-.02em', lineHeight: 1.1,
+          }}>
+            {top.title}
+          </h3>
+          <div style={{ fontSize: 13, color: 'var(--gold)', fontWeight: 500, marginBottom: 20 }}>
+            ✦ {top.tagline}
+          </div>
+          <p style={{ fontSize: 14, color: 'var(--brown2)', lineHeight: 1.85, marginBottom: 24 }}>
+            {top.description}
+          </p>
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 28 }}>
+            {top.stack.map(t => (
+              <span key={t} style={{
+                fontSize: 11, letterSpacing: '.06em', padding: '5px 12px',
+                background: 'rgba(255,255,255,0.07)', color: '#b0a898',
+                border: '1px solid rgba(255,255,255,0.1)', fontWeight: 500,
+              }}>{t}</span>
+            ))}
+          </div>
+          <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
+            <a href={top.github} style={{
+              display: 'inline-flex', alignItems: 'center', gap: 8,
+              background: 'var(--gold)', color: '#0a0a0a',
+              padding: '12px 24px', fontSize: 12, letterSpacing: '.06em',
+              textDecoration: 'none', fontWeight: 600,
+              transition: 'transform .2s, box-shadow .2s',
             }}
-              onMouseEnter={e => { e.currentTarget.style.background = 'var(--brown)'; e.currentTarget.style.color = 'var(--cream)' }}
-              onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--brown)' }}
+              onMouseEnter={e => { e.currentTarget.style.transform = 'translate(-2px,-2px)'; e.currentTarget.style.boxShadow = '4px 4px 0 rgba(232,160,69,0.25)' }}
+              onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none' }}
             >
-              {arrow}
-            </button>
-          ))}
+              GitHub ↗
+            </a>
+            {top.live && top.live !== '#' && (
+              <a href={top.live} style={{
+                display: 'inline-flex', alignItems: 'center', gap: 8,
+                border: '1.5px solid var(--gold)', color: 'var(--gold)',
+                padding: '11px 24px', fontSize: 12, letterSpacing: '.06em',
+                textDecoration: 'none', fontWeight: 500,
+                transition: 'background .2s, color .2s',
+              }}
+                onMouseEnter={e => { e.currentTarget.style.background = 'var(--gold)'; e.currentTarget.style.color = '#0a0a0a' }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--gold)' }}
+              >
+                Live Site ↗
+              </a>
+            )}
+          </div>
+
+          {/* Nav arrows */}
+          <div style={{ display: 'flex', gap: 12, marginTop: 32 }}>
+            {['←', '→'].map((arrow, i) => (
+              <button key={arrow} onClick={i === 0 ? handlePrev : handleNext}
+                style={{
+                  width: 44, height: 44, border: '1.5px solid var(--gold)',
+                  background: 'transparent', cursor: 'pointer',
+                  fontSize: 18, color: 'var(--gold)', fontFamily: 'inherit',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  transition: 'background .2s, color .2s',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.background = 'var(--gold)'; e.currentTarget.style.color = '#0a0a0a' }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--gold)' }}
+              >
+                {arrow}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </section>
   )
-}
+  }

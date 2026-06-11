@@ -62,9 +62,9 @@ export default function ClubEvents() {
       </div>
 
       {/* Tip for adding photos */}
-      <p style={{ fontSize: 12, color: 'var(--brown3)', marginTop: 24, fontStyle: 'italic' }}>
+      {/* <p style={{ fontSize: 12, color: 'var(--brown3)', marginTop: 24, fontStyle: 'italic' }}>
         📸 Add club photos to <code style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid var(--border)', padding: '2px 6px', fontSize: 11 }}>public/events/</code> and update the <code style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid var(--border)', padding: '2px 6px', fontSize: 11 }}>photo</code> field in <code style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid var(--border)', padding: '2px 6px', fontSize: 11 }}>portfolio.js</code>
-      </p>
+      </p> */}
     </section>
   )
 }

@@ -35,16 +35,16 @@ export default function App() {
       </main>
 
       <footer style={{
-        background: 'var(--brown)', color: 'rgba(250,247,242,.5)',
+        background: '#060606', color: 'rgba(255,255,255,0.4)',
         padding: '28px 48px', display: 'flex', justifyContent: 'space-between',
         alignItems: 'center', fontSize: 12, letterSpacing: '.05em',
+        borderTop: '1px solid var(--border)',
       }}>
-        <span style={{ fontFamily: 'Playfair Display, serif', fontStyle: 'italic', color: 'var(--gold2)' }}>
+        <span style={{ fontFamily: 'Playfair Display, serif', fontStyle: 'italic', color: 'var(--gold)' }}>
           Radhika Agarwal
         </span>
         <span>© 2026 · Built with curiosity, deployed with ambition</span>
-        <span style={{ fontFamily: 'Playfair Display, serif', fontStyle: 'italic', color: 'var(--gold2)' }}>
-          GL Bajaj · CSE '28
+        <span style={{ fontFamily: 'Playfair Display, serif', fontStyle: 'italic', color: 'var(--gold)' }}>
         </span>
       </footer>
     </>

@@ -26,27 +26,27 @@ export default function Contact() {
   ]
 
   const inputStyle = {
-    background: 'var(--bg)', border: '1.5px solid var(--border)',
-    color: 'var(--text)', padding: '13px 16px',
+    background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)',
+    color: '#f0ede6', padding: '13px 16px',
     fontFamily: 'DM Sans, sans-serif', fontSize: 13, outline: 'none',
     transition: 'border-color .2s, background .2s', width: '100%',
   }
 
   return (
-    <section id="contact" style={{ padding: '96px 48px', background: 'var(--cream)' }}>
-      <div className="sec-label">// 06 — get in touch</div>
+    <section id="contact" style={{ padding: '96px 48px', background: '#0d0d0d' }}>
+      <div className="sec-label" style={{ color: 'var(--gold)' }}>// 06 — get in touch</div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.1fr', gap: 80, alignItems: 'start' }}>
 
         {/* LEFT */}
         <div ref={leftRef} className="reveal">
           <h2 style={{
             fontFamily: 'Playfair Display, serif', fontWeight: 800, letterSpacing: '-.03em',
-            lineHeight: 1.05, marginBottom: 20, color: 'var(--brown)',
+            lineHeight: 1.05, marginBottom: 20, color: '#f0ede6',
             fontSize: 'clamp(32px, 4.5vw, 52px)',
           }}>
             Let's build<br />something<br /><em style={{ fontStyle: 'italic', color: 'var(--brown2)' }}>together.</em>
           </h2>
-          <p style={{ fontSize: 14, lineHeight: 1.9, color: 'var(--muted)', marginBottom: 32 }}>
+          <p style={{ fontSize: 14, lineHeight: 1.9, color: 'var(--brown2)', marginBottom: 32 }}>
             Whether it's an internship, a collab on an AI project, or just a good tech conversation — reach out. I reply fast.
           </p>
           <div>
@@ -54,16 +54,16 @@ export default function Contact() {
               <a key={label} href={href}
                 style={{
                   display: 'flex', alignItems: 'center', gap: 16, padding: '16px 0',
-                  borderBottom: '1px solid var(--border)', textDecoration: 'none',
+                  borderBottom: '1px solid rgba(255,255,255,0.08)', textDecoration: 'none',
                   color: 'var(--brown2)', fontSize: 13, transition: 'color .2s, paddingLeft .25s',
                 }}
-                onMouseEnter={e => { e.currentTarget.style.color = 'var(--brown)'; e.currentTarget.style.paddingLeft = '8px' }}
+                onMouseEnter={e => { e.currentTarget.style.color = 'var(--gold)'; e.currentTarget.style.paddingLeft = '8px' }}
                 onMouseLeave={e => { e.currentTarget.style.color = 'var(--brown2)'; e.currentTarget.style.paddingLeft = '0px' }}
               >
                 <span style={{
-                  width: 34, height: 34, border: '1.5px solid var(--border)',
+                  width: 34, height: 34, border: '1px solid rgba(255,255,255,0.08)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: 14, flexShrink: 0, background: 'var(--bg2)',
+                  fontSize: 14, flexShrink: 0, background: 'rgba(255,255,255,0.04)',
                 }}>
                   {icon}
                 </span>
@@ -81,45 +81,45 @@ export default function Contact() {
               { label: 'Email', key: 'email', type: 'email', placeholder: 'you@email.com' },
             ].map(({ label, key, type, placeholder }) => (
               <div key={key} style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
-                <label style={{ fontSize: 10, letterSpacing: '.16em', textTransform: 'uppercase', color: 'var(--muted)', fontWeight: 500 }}>
+                <label style={{ fontSize: 10, letterSpacing: '.16em', textTransform: 'uppercase', color: 'var(--brown3)', fontWeight: 500 }}>
                   {label}
                 </label>
                 <input
                   type={type} placeholder={placeholder} required
                   value={form[key]} onChange={e => setForm(f => ({ ...f, [key]: e.target.value }))}
                   style={inputStyle}
-                  onFocus={e => { e.target.style.borderColor = 'var(--brown3)'; e.target.style.background = 'var(--cream)' }}
-                  onBlur={e  => { e.target.style.borderColor = 'var(--border)'; e.target.style.background = 'var(--bg)' }}
+                  onFocus={e => { e.target.style.borderColor = 'var(--gold)'; e.target.style.background = 'rgba(255,255,255,0.06)' }}
+                  onBlur={e  => { e.target.style.borderColor = 'rgba(255,255,255,0.08)'; e.target.style.background = 'rgba(255,255,255,0.04)' }}
                 />
               </div>
             ))}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
-            <label style={{ fontSize: 10, letterSpacing: '.16em', textTransform: 'uppercase', color: 'var(--muted)', fontWeight: 500 }}>Subject</label>
+            <label style={{ fontSize: 10, letterSpacing: '.16em', textTransform: 'uppercase', color: 'var(--brown3)', fontWeight: 500 }}>Subject</label>
             <input type="text" placeholder="Internship / Collab / Just saying hi" required
               value={form.subject} onChange={e => setForm(f => ({ ...f, subject: e.target.value }))}
               style={inputStyle}
-              onFocus={e => { e.target.style.borderColor = 'var(--brown3)'; e.target.style.background = 'var(--cream)' }}
-              onBlur={e  => { e.target.style.borderColor = 'var(--border)'; e.target.style.background = 'var(--bg)' }}
+              onFocus={e => { e.target.style.borderColor = 'var(--gold)'; e.target.style.background = 'rgba(255,255,255,0.06)' }}
+              onBlur={e  => { e.target.style.borderColor = 'rgba(255,255,255,0.08)'; e.target.style.background = 'rgba(255,255,255,0.04)' }}
             />
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
-            <label style={{ fontSize: 10, letterSpacing: '.16em', textTransform: 'uppercase', color: 'var(--muted)', fontWeight: 500 }}>Message</label>
+            <label style={{ fontSize: 10, letterSpacing: '.16em', textTransform: 'uppercase', color: 'var(--brown3)', fontWeight: 500 }}>Message</label>
             <textarea placeholder="Tell me what you're building..." required rows={5}
               value={form.message} onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
               style={{ ...inputStyle, resize: 'vertical' }}
-              onFocus={e => { e.target.style.borderColor = 'var(--brown3)'; e.target.style.background = 'var(--cream)' }}
-              onBlur={e  => { e.target.style.borderColor = 'var(--border)'; e.target.style.background = 'var(--bg)' }}
+              onFocus={e => { e.target.style.borderColor = 'var(--gold)'; e.target.style.background = 'rgba(255,255,255,0.06)' }}
+              onBlur={e  => { e.target.style.borderColor = 'rgba(255,255,255,0.08)'; e.target.style.background = 'rgba(255,255,255,0.04)' }}
             />
           </div>
           <button type="submit" style={{
-            background: sent ? '#5a8a3a' : 'var(--brown)', color: 'var(--cream)',
+            background: sent ? '#5a8a3a' : 'var(--gold)', color: '#0a0a0a',
             padding: '15px 32px', border: 'none',
             fontFamily: 'Playfair Display, serif', fontSize: 15, fontWeight: 700,
             cursor: 'pointer', transition: 'transform .2s, box-shadow .2s, background .3s',
             alignSelf: 'flex-start', letterSpacing: '.02em',
           }}
-            onMouseEnter={e => { if(!sent){ e.currentTarget.style.transform = 'translate(-2px,-2px)'; e.currentTarget.style.boxShadow = '4px 4px 0 var(--brown3)' }}}
+            onMouseEnter={e => { if(!sent){ e.currentTarget.style.transform = 'translate(-2px,-2px)'; e.currentTarget.style.boxShadow = '4px 4px 0 rgba(232,160,69,0.25)' }}}
             onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none' }}
           >
             {sent ? '✓ Opening mail client...' : 'Send Message →'}

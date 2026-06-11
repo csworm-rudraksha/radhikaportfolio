@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 /* @theme {
-  --color-bg:     #f5f0e8;
-  --color-bg2:    #ede6d6;
-  --color-bg3:    #e4d9c3;
-  --color-cream:  #faf7f2;
-  --color-brown:  #3d2b1f;
-  --color-brown2: #6b4c3b;
-  --color-brown3: #a07850;
-  --color-muted:  #8a7060;
-  --color-gold:   #c49a3c;
-  --color-gold2:  #e8c060;
+  --color-bg:     #0a0a0a;
+  --color-bg2:    #0d0d0d;
+  --color-bg3:    #0a0a0a;
+  --color-cream:  rgba(255,255,255,0.04);
+  --color-brown:  #f0ede6;
+  --color-brown2: #a09888;
+  --color-brown3: #6a6058;
+  --color-muted:  #6a6058;
+  --color-gold:   #e8a045;
+  --color-gold2:  #e8c070;
 
   --font-playfair: "Playfair Display", serif;
   --font-dm:       "DM Sans", sans-serif;
@@ -21,28 +21,39 @@
 
 @layer base {
   :root {
-    --bg:     #f5f0e8;
-    --bg2:    #ede6d6;
-    --bg3:    #e4d9c3;
-    --cream:  #faf7f2;
-    --brown:  #3d2b1f;
-    --brown2: #6b4c3b;
-    --brown3: #a07850;
-    --muted:  #8a7060;
-    --gold:   #c49a3c;
-    --gold2:  #e8c060;
-    --border: rgba(61,43,31,0.12);
-  }
+  --bg:     #0a0a0a;
+  --bg2:    #0d0d0d;
+  --bg3:    #0a0a0a;
 
+  --cream:  rgba(255,255,255,0.04);
+
+  --brown:  #f0ede6;
+  --brown2: #a09888;
+  --brown3: #6a6058;
+
+  --muted:  #6a6058;
+
+  --gold:   #e8a045;
+  --gold2:  #e8c070;
+
+  --border: rgba(255,255,255,0.08);
+}
   html { scroll-behavior: smooth; }
 
   body {
-    background: var(--bg);
-    color: var(--brown);
-    font-family: 'DM Sans', sans-serif;
-    overflow-x: hidden;
-    cursor: none;
-  }
+  background:
+    radial-gradient(circle at top left, rgba(232,160,69,.06), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(232,160,69,.04), transparent 35%),
+    var(--bg);
+
+  color: var(--brown2);
+
+  font-family: 'DM Sans', sans-serif;
+
+  overflow-x: hidden;
+
+  cursor: none;
+}
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -63,7 +74,7 @@
   .custom-cursor {
     position: fixed;
     width: 10px; height: 10px;
-    background: var(--brown);
+    background: var(--gold);
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
@@ -73,7 +84,7 @@
   .custom-cursor-ring {
     position: fixed;
     width: 32px; height: 32px;
-    border: 1.5px solid var(--brown3);
+    border: 1.5px solid rgba(232,160,69,0.4);
     border-radius: 50%;
     pointer-events: none;
     z-index: 9998;
@@ -84,9 +95,9 @@
   /* ---------- SKILLS TICKER ---------- */
   .ticker-wrap {
     overflow: hidden;
-    background: var(--brown);
-    border-top: 1px solid rgba(255,255,255,.1);
-    border-bottom: 1px solid rgba(255,255,255,.1);
+    background: #0d0d0d;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
     padding: 16px 0;
   }
   .ticker-inner {
@@ -107,7 +118,7 @@
     font-size: 12px;
     letter-spacing: .1em;
     text-transform: uppercase;
-    color: rgba(250,247,242,.7);
+    color: rgba(160,152,136,0.6);
     font-weight: 500;
     white-space: nowrap;
     transition: color .2s;
@@ -138,37 +149,55 @@
 
   /* ---------- BUTTONS ---------- */
   .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--brown);
-    color: var(--cream);
-    padding: 14px 28px;
-    font-size: 13px;
-    letter-spacing: .06em;
-    font-weight: 500;
-    text-decoration: none;
-    transition: transform .2s, box-shadow .2s;
-  }
-  .btn-primary:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 4px 4px 0 var(--brown3);
-  }
-  .btn-outline {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    border: 1.5px solid var(--brown3);
-    color: var(--brown);
-    padding: 13px 28px;
-    font-size: 13px;
-    letter-spacing: .06em;
-    font-weight: 500;
-    text-decoration: none;
-    transition: background .2s, color .2s;
-  }
-  .btn-outline:hover { background: var(--brown); color: var(--cream); }
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
 
+  background: var(--gold);
+  color: #0a0a0a;
+
+  padding: 14px 28px;
+
+  font-size: 13px;
+  letter-spacing: .06em;
+  font-weight: 600;
+
+  text-decoration: none;
+
+  transition: all .25s ease;
+}
+
+.btn-primary:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 rgba(232,160,69,0.25);
+}
+  .btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  border: 1.5px solid var(--gold);
+
+  color: var(--gold);
+
+  padding: 13px 28px;
+
+  font-size: 13px;
+  letter-spacing: .06em;
+  font-weight: 500;
+
+  text-decoration: none;
+
+  background: transparent;
+
+  transition: all .25s ease;
+}
+
+.btn-outline:hover {
+  background: var(--gold);
+  color: #0a0a0a;
+}
+ 
   /* ---------- REVEAL ---------- */
   .reveal {
     opacity: 0;
@@ -182,6 +211,15 @@
 }
 
 /* Scrollbar */
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: var(--bg2); }
-::-webkit-scrollbar-thumb { background: var(--brown3); }
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0d0d0d;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gold);
+  border-radius: 20px;
+}

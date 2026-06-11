@@ -9,11 +9,11 @@ export const personal = {
   location: 'Greater Noida, UP',
   email: 'radhikaag18@gmail.com',
   phone: '+91 95282 01914',
-  github: 'https://github.com/radhika',       // ← update with your real link
-  linkedin: 'https://linkedin.com/in/radhika', // ← update
+  github: 'https://github.com/radhikaa188',       // ← update with your real link
+  linkedin: 'https://www.linkedin.com/in/radhika-agarwal-0ba964238/', // ← update
   leetcode: 'https://leetcode.com/radhikaag18',
   bio: "Building LLM-powered, full-stack products that actually ship. From voice-AI platforms to code generators — I turn ideas into real things using React, FastAPI, and a little too much curiosity.",
-  availability: 'Open to internships & collabs',
+  availability: 'Open to internships',
 }
 
 // ─── STATS ───────────────────────────────────────────────────────────────────
@@ -48,8 +48,8 @@ export const projects = [
     description:
       'Multilingual AI platform supporting 50+ skill paths and 3+ languages via Google Cloud Speech-to-Text/TTS. Achieved 30% lower response latency. Deployed on Vercel (frontend) and Render (backend) with real-time voice interactions for non-English speakers.',
     stack: ['Next.js', 'TypeScript', 'Python', 'Gemini', 'GCP', 'Node.js'],
-    github: '#',  // ← add your link
-    live: '#',
+    github: 'https://github.com/radhikaa188/finalSaksham',
+    live: 'http://finalsaksham-frontend-1u9b.vercel.app',
   },
   {
     id: 2,
@@ -62,8 +62,8 @@ export const projects = [
     description:
       'AI-powered platform converting natural language prompts into production-ready HTML/CSS components using Gemini 2.5 Flash with real-time chat refinement. Built with Next.js 15, Neon Postgres, Drizzle ORM, Clerk auth, and a credit-based tiered access system.',
     stack: ['Next.js', 'TypeScript', 'Gemini AI', 'PostgreSQL', 'Clerk', 'Drizzle ORM'],
-    github: '#',
-    live: '#',
+    github: 'https://github.com/radhikaa188/ai_web_generation_app',
+    live: 'http://ai-web-generation-app-kaaw.vercel.app',
   },
   {
     id: 3,
@@ -76,8 +76,8 @@ export const projects = [
     description:
       'AI-powered mock interview platform generating role-specific questions using LLaMA 3.3-70B via Groq API. Features automated answer evaluation, per-question scoring, session state management, and secure API handling. Deployed on Streamlit Cloud.',
     stack: ['Python', 'Streamlit', 'Groq', 'LLaMA 3.3-70B', 'Prompt Engineering'],
-    github: '#',
-    live: '#',
+    github: 'https://github.com/radhikaa188/ai-interview-coach',
+    live: 'https://ai-interview-coach-khsiqpsply4e7aonqyuyrj.streamlit.app',
   },
 ]
 
@@ -85,32 +85,28 @@ export const projects = [
 export const achievements = [
   {
     num: '01',
-    icon: '🏆',
-    title: 'AI for Bharat Hackathon — Recognition Badge',
-    desc: 'Built an AI-based solution for real-world Indian use cases at a national-level hackathon. Earned recognition badge out of hundreds of competing teams.',
-    tag: 'Hackathon · National',
+    icon: '🧠',
+    title: 'Mentored & Conducted Sessions for Peers',
+    desc: 'Conducted multiple knowledge-sharing sessions...',
+    tag: 'Mentorship · Community',
+    date: '2025',
   },
   {
     num: '02',
-    icon: '🌸',
-    title: 'GSSoC Contributor — 20,000+ Program',
-    desc: 'Selected as open source contributor in GirlScript Summer of Code, one of India\'s largest open source programs. Contributed to real-world production repositories.',
-    tag: 'Open Source · GirlScript',
+    icon: '🏆',
+    title: 'AI for Bharat Hackathon — Recognition Badge',
+    desc: 'Built an AI-based solution for real-world Indian use cases...',
+    tag: 'Hackathon · National',
+    date: 'Feb 2026',
   },
   {
     num: '03',
-    icon: '🧠',
-    title: 'Mentored & Conducted Sessions for Peers',
-    desc: 'Conducted multiple knowledge-sharing sessions and mentored junior peers on DSA, web development, and AI tools — helping them navigate their early coding journey.',
-    tag: 'Mentorship · Community',
-  },
-  {
-    num: '04',
-    icon: '💻',
-    title: '200+ DSA Problems Solved',
-    desc: 'Solved 200+ Data Structures & Algorithms problems across LeetCode and competitive coding platforms. Strong foundation across arrays, trees, DP, and graphs.',
-    tag: 'LeetCode · Problem Solving',
-  },
+    icon: '🌸',
+    title: 'GSSoC Contributor — 20,000+ Program',
+    desc: 'Selected as open source contributor in GirlScript Summer of Code...',
+    tag: 'Open Source · GirlScript',
+    date: 'May 2026',
+  }
 ]
 
 // ─── CERTIFICATIONS ───────────────────────────────────────────────────────────
